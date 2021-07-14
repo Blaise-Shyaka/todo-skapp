@@ -1,23 +1,13 @@
+import Login from './components/Login';
+import Tasks from './components/Tasks';
+import CreateToDo from './components/CreateToDo';
+
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src="" className="App-logo" alt="logo" />
-        <p>
-          Edit
-          <code>src/App.js</code>
-          {' '}
-          and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Login />
+      <CreateToDo />
+      <Tasks todos={[]} />
     </div>
   );
 }
