@@ -3,7 +3,7 @@ import Task from './Task';
 
 export default function Tasks(props) {
   const { todos } = props;
-  const tasksMarkup = todos.map((todo) => <Task key={todos.indexof(todo)} todo={todo} />);
+  const tasksMarkup = todos.map((todo) => <Task key={todos.indexOf(todo)} todo={todo} />);
   return (
     <div>
       {' '}

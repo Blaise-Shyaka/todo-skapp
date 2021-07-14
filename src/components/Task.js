@@ -5,7 +5,7 @@ export default function Task(props) {
   const { todo } = props;
   const { title, tasks } = todo;
   const tasksMarkup = tasks.map((task) => (
-    <li key={tasks.indexof(task)}>
+    <li key={tasks.indexOf(task)}>
       <input type="checkbox" />
       {' '}
       <span>
