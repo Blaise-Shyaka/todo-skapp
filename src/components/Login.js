@@ -1,64 +1,39 @@
-// import { useEffect } from 'react';
-import { SkynetClient } from 'skynet-js';
-// import { useHistory } from 'react-router-dom';
-// import { show, hide } from '../styles/Login.module.css';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { checkLogin, requestUserLogin } from '../actions/actionCreators';
 
-const portal = window.location.hostname === 'localhost' ? 'https://siasky.net' : undefined;
-export const client = new SkynetClient(portal);
-let userLoggedIn;
+function Login(props) {
+  const { userLoggedIn, requestUserLogin, checkLogin } = props;
 
-const requestLogin = async (e) => {
-  try {
-    const mySky = await client.loadMySky();
-    const loggedIn = await mySky.checkLogin();
-    const btn = e.target;
+  // Check the login status of the user
+  checkLogin();
 
-    if (!loggedIn) {
-      btn.addEventListener('click', () => {
-        userLoggedIn = mySky.requestLoginAccess();
-        return userLoggedIn;
-      });
-      // return <Redirect to="/todos" />;
-      return;
-    }
-  } catch (e) {
-    console.log(e);
+  // Redirect to the /todos page if the user is logged in
+  if (userLoggedIn) {
+    const history = useHistory();
+    history.push('/todos');
   }
 
-  // return <Redirect to="/todos" />;
-};
-
-// async function loginStatus() {
-//   let status;
-//   try {
-//     const mySky = await client.loadMySky();
-//     status = await mySky.checkLogin();
-//   } catch (e) {
-//     console.log(e);
-//   }
-//   return status;
-// }
-
-export default function Login() {
-  // function handleLogin(e) {
-  //   const button = e.target;
-  //   requestLogin(button);
-  // }
-
-  // const history = useHistory();
-  // history.push('/todos');
-  // let loggedIn;
-
-  // useEffect(() => {
-  //   loggedIn = loginStatus();
-  //   console.log('logged in', loggedIn);
-  // }, []);
-
-  // console.log(loggedIn);
-  // const cssClass = loggedIn ? hide : show;
-  // console.log('css class', cssClass);
-
-  console.log(userLoggedIn);
-
-  return <button type="button" onClick={(e) => requestLogin(e)}>Login With MySky</button>;
+  return <button type="button" onClick={requestUserLogin}>Login With MySky</button>;
 }
+
+function mapStateToProps(state) {
+  const { userLoggedIn } = state;
+  return { userLoggedIn };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    requestUserLogin: () => dispatch(requestUserLogin()),
+    checkLogin: () => dispatch(checkLogin()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  userLoggedIn: PropTypes.bool.isRequired,
+  requestUserLogin: PropTypes.func.isRequired,
+  checkLogin: PropTypes.func.isRequired,
+};

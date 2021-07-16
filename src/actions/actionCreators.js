@@ -1,7 +1,10 @@
+import { SkynetClient } from 'skynet-js';
 import {
   ADD_TASK, ADD_TODO, TOGGLE_LOGIN_STATUS, UPDATE_TODOS,
 } from './actionTypes';
-import { client } from '../components/Login';
+
+const portal = window.location.hostname === 'localhost' ? 'https://siasky.net' : undefined;
+export const client = new SkynetClient(portal);
 
 export function addToDo(payload) {
   return {
@@ -67,5 +70,31 @@ export function fetchTodos() {
     } catch (e) {
       console.log(e);
     }
+  };
+}
+
+export function requestUserLogin() {
+  return async (dispatch) => {
+    try {
+      const mySky = await client.loadMySky();
+      const isLoggedIn = await mySky.checkLogin();
+
+      if (!isLoggedIn) {
+        const status = await mySky.requestLoginAccess();
+        dispatch(toggleLoginStatus(status));
+        return;
+      }
+      dispatch(toggleLoginStatus(isLoggedIn));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function checkLogin() {
+  return async (dispatch) => {
+    const mySky = await client.loadMySky();
+    const isLoggedIn = await mySky.checkLogin();
+    dispatch(toggleLoginStatus(isLoggedIn));
   };
 }
