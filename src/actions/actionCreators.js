@@ -98,3 +98,15 @@ export function checkLogin() {
     dispatch(toggleLoginStatus(isLoggedIn));
   };
 }
+
+export function logoutUser() {
+  return async (dispatch) => {
+    try {
+      const mySky = await client.loadMySky();
+      await mySky.logout();
+      dispatch(toggleLoginStatus(false));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
