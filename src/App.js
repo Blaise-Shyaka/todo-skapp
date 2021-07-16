@@ -1,3 +1,4 @@
+import { Switch, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Tasks from './components/Tasks';
 import CreateToDo from './components/CreateToDo';
@@ -16,9 +17,15 @@ const todos = [
 function App() {
   return (
     <div className="App">
-      <Login />
-      <CreateToDo />
-      <Tasks todos={todos} />
+      <Switch>
+        <Route path="/" exact>
+          <Login />
+        </Route>
+        <Route path="/todos" exact>
+          <CreateToDo />
+          <Tasks todos={todos} />
+        </Route>
+      </Switch>
     </div>
   );
 }

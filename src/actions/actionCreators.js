@@ -1,15 +1,71 @@
-import { ADDTASK, ADDTODO } from './actionTypes';
+import {
+  ADD_TASK, ADD_TODO, TOGGLE_LOGIN_STATUS, UPDATE_TODOS,
+} from './actionTypes';
+import { client } from '../components/Login';
 
 export function addToDo(payload) {
   return {
-    type: ADDTODO,
+    type: ADD_TODO,
     payload,
   };
 }
 
 export function addTask(payload) {
   return {
-    type: ADDTASK,
+    type: ADD_TASK,
     payload,
+  };
+}
+
+export function updateTodos(payload) {
+  return {
+    type: UPDATE_TODOS,
+    payload,
+  };
+}
+
+export function toggleLoginStatus(payload) {
+  return {
+    type: TOGGLE_LOGIN_STATUS,
+    payload,
+  };
+}
+
+export function postTodo(todo) {
+  return async (dispatch) => {
+    try {
+      const mySky = await client.loadMySky();
+      const { data } = await mySky.setJSON('https://siasky.net/todos.json', todo);
+      dispatch(addToDo(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function postTask(task) {
+  return async (dispatch) => {
+    try {
+      const mySky = await client.loadMySky();
+      const { data } = await mySky.getJSON('https://siasky.net/todos.json');
+      const todo = data.find((todo) => todo.title === task.title);
+      todo.tasks.push(task.task);
+      dispatch(addTask(task));
+      await mySky.setJSON('https://siasky.net/todos.json', data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function fetchTodos() {
+  return async (dispatch) => {
+    try {
+      const mySky = await client.loadMySky();
+      const { data } = await mySky.getJSON('https://siasky.net/todos.json');
+      dispatch(updateTodos(data));
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
