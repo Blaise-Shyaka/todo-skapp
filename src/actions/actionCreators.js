@@ -5,6 +5,8 @@ import {
 
 const portal = window.location.hostname === 'localhost' ? 'https://siasky.net' : undefined;
 export const client = new SkynetClient(portal);
+const domain = 'localhost';
+const todosFilePath = `${domain}/tda.json`;
 
 export function addToDo(payload) {
   return {
@@ -38,7 +40,17 @@ export function postTodo(todo) {
   return async (dispatch) => {
     try {
       const mySky = await client.loadMySky();
-      const { data } = await mySky.setJSON('https://siasky.net/todos.json', todo);
+      const { data: existingTodos } = await mySky.getJSON(todosFilePath);
+
+      if (existingTodos) {
+        const updatedTodos = [...existingTodos, todo];
+        const { data } = await mySky.setJSON(todosFilePath, updatedTodos);
+        dispatch(addToDo(data));
+        return;
+      }
+
+      const { data } = await mySky.setJSON(todosFilePath, [todo]);
+
       dispatch(addToDo(data));
     } catch (e) {
       console.log(e);
@@ -65,8 +77,9 @@ export function fetchTodos() {
   return async (dispatch) => {
     try {
       const mySky = await client.loadMySky();
-      const { data } = await mySky.getJSON('https://siasky.net/todos.json');
-      dispatch(updateTodos(data));
+      const { data } = await mySky.getJSON(todosFilePath);
+
+      dispatch(updateTodos(data || []));
     } catch (e) {
       console.log(e);
     }

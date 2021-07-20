@@ -6,6 +6,7 @@ import Task from './Task';
 
 function Tasks(props) {
   const { todos, logoutUser, userLoggedIn } = props;
+
   const tasksMarkup = todos.map((todo) => <Task key={todos.indexOf(todo)} todo={todo} />);
 
   function logout() {
@@ -31,10 +32,15 @@ function Tasks(props) {
 
 Tasks.propTypes = {
   todos: PropTypes
-    .arrayOf(PropTypes.shape({ title: PropTypes.arrayOf(PropTypes.string) }))
+    .arrayOf(PropTypes.shape(
+      {
+        title: PropTypes.string,
+        tasks: PropTypes.arrayOf(PropTypes.string),
+      },
+    ))
     .isRequired,
   logoutUser: PropTypes.func.isRequired,
-  userLoggedIn: PropTypes.string.isRequired,
+  userLoggedIn: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
