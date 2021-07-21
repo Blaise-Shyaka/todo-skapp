@@ -1,6 +1,6 @@
 import { SkynetClient } from 'skynet-js';
 import {
-  ADD_TASK, ADD_TODO, TOGGLE_LOGIN_STATUS, UPDATE_TODOS,
+  ADD_TASK, ADD_TODO, DELETETODO, TOGGLE_LOGIN_STATUS, UPDATE_TODOS,
 } from './actionTypes';
 
 const portal = window.location.hostname === 'localhost' ? 'https://siasky.net' : undefined;
@@ -25,6 +25,13 @@ export function addTask(payload) {
 export function updateTodos(payload) {
   return {
     type: UPDATE_TODOS,
+    payload,
+  };
+}
+
+export function deleteTodo(payload) {
+  return {
+    type: DELETETODO,
     payload,
   };
 }
@@ -81,6 +88,21 @@ export function fetchTodos() {
       const { data } = await mySky.getJSON(todosFilePath);
 
       dispatch(updateTodos(data || []));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function removeTodo(index) {
+  return async (dispatch) => {
+    try {
+      const mySky = await client.loadMySky();
+      const { data } = await mySky.getJSON(todosFilePath);
+      data.splice(index, 1);
+
+      dispatch(deleteTodo(index));
+      await mySky.setJSON(todosFilePath, data);
     } catch (e) {
       console.log(e);
     }

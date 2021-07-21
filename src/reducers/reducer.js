@@ -1,5 +1,5 @@
 import {
-  ADD_TODO, ADD_TASK, UPDATE_TODOS, TOGGLE_LOGIN_STATUS,
+  ADD_TODO, ADD_TASK, UPDATE_TODOS, TOGGLE_LOGIN_STATUS, DELETETODO,
 } from '../actions/actionTypes';
 
 const defaultState = {
@@ -17,15 +17,18 @@ export default function reducer(state = defaultState, action) {
       const currentState = { ...state };
       const { todos: updatedTodos } = currentState;
       const todo = updatedTodos.find((todo) => todo.title === payload.title);
-      console.log('Before push', todo);
       todo.tasks.push(payload.task);
-      console.log('After push', todo);
       return { ...state, todos: [...updatedTodos] };
     }
     case UPDATE_TODOS:
       return { ...state, todos: payload };
     case TOGGLE_LOGIN_STATUS:
       return { ...state, userLoggedIn: payload };
+    case DELETETODO: {
+      const { todos } = state;
+      todos.splice(payload, 1);
+      return { ...state, todos: [...todos] };
+    }
     default:
       return state;
   }
