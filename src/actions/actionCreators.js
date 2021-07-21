@@ -60,13 +60,14 @@ export function postTodo(todo) {
 
 export function postTask(task) {
   return async (dispatch) => {
+    const { title, task: newTask } = task;
     try {
       const mySky = await client.loadMySky();
-      const { data } = await mySky.getJSON('https://siasky.net/todos.json');
-      const todo = data.find((todo) => todo.title === task.title);
-      todo.tasks.push(task.task);
+      const { data } = await mySky.getJSON(todosFilePath);
+      const todo = data.find((todo) => todo.title === title);
+      todo.tasks.push(newTask);
       dispatch(addTask(task));
-      await mySky.setJSON('https://siasky.net/todos.json', data);
+      await mySky.setJSON(todosFilePath, data);
     } catch (e) {
       console.log(e);
     }

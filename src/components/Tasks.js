@@ -7,7 +7,13 @@ import Task from './Task';
 function Tasks(props) {
   const { todos, logoutUser, userLoggedIn } = props;
 
-  const tasksMarkup = todos.map((todo) => <Task key={todos.indexOf(todo)} todo={todo} />);
+  const tasksMarkup = todos.map((todo) => (
+    <Task
+      key={todos.indexOf(todo)}
+      identifier={todos.indexOf(todo)}
+      todo={todo}
+    />
+  ));
 
   function logout() {
     logoutUser();

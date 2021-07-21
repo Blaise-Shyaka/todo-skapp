@@ -14,10 +14,13 @@ export default function reducer(state = defaultState, action) {
     case ADD_TODO:
       return { ...state, todos: [...payload] };
     case ADD_TASK: {
-      const newState = { ...state };
-      const todo = newState.todos.find((todo) => todo.title === payload.title);
+      const currentState = { ...state };
+      const { todos: updatedTodos } = currentState;
+      const todo = updatedTodos.find((todo) => todo.title === payload.title);
+      console.log('Before push', todo);
       todo.tasks.push(payload.task);
-      return { ...newState };
+      console.log('After push', todo);
+      return { ...state, todos: [...updatedTodos] };
     }
     case UPDATE_TODOS:
       return { ...state, todos: payload };
