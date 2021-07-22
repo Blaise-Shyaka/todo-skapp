@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeTodo } from '../actions/actionCreators';
+import { removeTask, removeTodo } from '../actions/actionCreators';
 import AddTask from './AddTask';
 
 function Task(props) {
-  const { todo, identifier, removeTodo } = props;
+  const {
+    todo, identifier, removeTodo, removeTask,
+  } = props;
 
   const { title, tasks } = todo;
   const tasksMarkup = tasks.map((task) => (
@@ -18,9 +20,9 @@ function Task(props) {
           {' '}
         </span>
       </div>
-      <div>
+      <button type="button" onClick={() => removeTask({ todoIndex: identifier, taskIndex: tasks.indexOf(task) })}>
         <img src="https://www.freeiconspng.com/uploads/remove-icon-png-15.png" width="20" alt="Icon Remove Library" />
-      </div>
+      </button>
     </li>
   ));
 
@@ -46,12 +48,18 @@ Task.propTypes = {
     .isRequired,
   identifier: PropTypes.number.isRequired,
   removeTodo: PropTypes.func.isRequired,
+  removeTask: PropTypes.func.isRequired,
 };
+
+function mapStateToProps(state) {
+  return state;
+}
 
 function mapDispatchToProps(dispatch) {
   return {
     removeTodo: (index) => dispatch(removeTodo(index)),
+    removeTask: (indices) => dispatch(removeTask(indices)),
   };
 }
 
-export default connect(null, mapDispatchToProps)(Task);
+export default connect(mapStateToProps, mapDispatchToProps)(Task);

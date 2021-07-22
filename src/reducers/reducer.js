@@ -1,5 +1,5 @@
 import {
-  ADD_TODO, ADD_TASK, UPDATE_TODOS, TOGGLE_LOGIN_STATUS, DELETETODO,
+  ADD_TODO, ADD_TASK, UPDATE_TODOS, TOGGLE_LOGIN_STATUS, DELETETODO, DELETETASK,
 } from '../actions/actionTypes';
 
 const defaultState = {
@@ -27,6 +27,13 @@ export default function reducer(state = defaultState, action) {
     case DELETETODO: {
       const { todos } = state;
       todos.splice(payload, 1);
+      return { ...state, todos: [...todos] };
+    }
+    case DELETETASK: {
+      const { todoIndex, taskIndex } = payload;
+      const { todos } = { ...state };
+      const todo = todos[todoIndex];
+      todo.tasks.splice(taskIndex, 1);
       return { ...state, todos: [...todos] };
     }
     default:
