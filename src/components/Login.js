@@ -2,11 +2,14 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { checkLogin, fetchTodos, requestUserLogin } from '../actions/actionCreators';
+import * as loginStyles from '../styles/Login.module.css';
 
 function Login(props) {
   const {
     userLoggedIn, requestUserLogin, checkLogin, fetchTodos,
   } = props;
+
+  const { loginButton } = loginStyles;
 
   // Check the login status of the user
   checkLogin();
@@ -18,7 +21,7 @@ function Login(props) {
     history.push('/todos');
   }
 
-  return <button type="button" onClick={requestUserLogin}>Login With MySky</button>;
+  return <button className={loginButton} type="button" onClick={requestUserLogin}>Login With MySky</button>;
 }
 
 function mapStateToProps(state) {

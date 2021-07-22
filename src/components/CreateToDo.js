@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { postTodo } from '../actions/actionCreators';
+import * as createTodoStyles from '../styles/CreateToDo.module.css';
 
 function CreateToDo(props) {
   const { createTodo } = props;
+  const { creatingTodo } = createTodoStyles;
 
   function handleCreateTodo() {
     const title = document.querySelector('#new-todo').value;
@@ -16,8 +18,8 @@ function CreateToDo(props) {
   }
 
   return (
-    <div>
-      <input id="new-todo" type="text" />
+    <div className={creatingTodo}>
+      <input id="new-todo" type="text" placeholder="Todo Title" />
       <button type="button" onClick={handleCreateTodo}>Create Todo</button>
     </div>
   );
