@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { postTask } from '../actions/actionCreators';
+import * as addTaskStyles from '../styles/AddTask.module.css';
 
 function AddTask(props) {
   const { title, todoIdentifier, postTask } = props;
+  const { addTaskContainer } = addTaskStyles;
   const inputEltId = `task-text-${todoIdentifier}`;
 
   function handleAddTask() {
@@ -19,8 +21,8 @@ function AddTask(props) {
   }
 
   return (
-    <div>
-      <input id={inputEltId} type="text" />
+    <div className={addTaskContainer}>
+      <input id={inputEltId} type="text" placeholder="New Task" />
       <button type="button" onClick={handleAddTask}>Add Task</button>
     </div>
   );

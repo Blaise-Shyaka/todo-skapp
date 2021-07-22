@@ -1,0 +1,19 @@
+.addTaskContainer input {
+  border: 1px solid rgb(214, 214, 214);
+  outline: none;
+  padding: 0.5rem;
+  border-radius: 3px;
+  margin-right: 0.2rem;
+}
+
+.addTaskContainer button {
+  background-color: #5c4fa4;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 3px;
+}
+
+.addTaskContainer button:hover {
+  cursor: pointer;
+}

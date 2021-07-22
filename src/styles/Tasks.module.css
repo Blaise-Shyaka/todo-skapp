@@ -1,0 +1,21 @@
+.logoutBtn {
+  position: absolute;
+  right: 5%;
+  top: 1.5rem;
+}
+
+.logoutBtn button {
+  border: none;
+  padding: 0.7rem 2rem;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.logoutBtn button:hover {
+  cursor: pointer;
+}
+
+.tasksContainer {
+  display: flex;
+  flex-wrap: wrap;
+}

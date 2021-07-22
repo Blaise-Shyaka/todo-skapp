@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logoutUser } from '../actions/actionCreators';
 import Task from './Task';
+import * as tasksStyles from '../styles/Tasks.module.css';
 
 function Tasks(props) {
   const { todos, logoutUser, userLoggedIn } = props;
+  const { logoutBtn, tasksContainer } = tasksStyles;
 
   const tasksMarkup = todos.map((todo) => (
     <Task
@@ -26,10 +28,10 @@ function Tasks(props) {
 
   return (
     <div>
-      <div>
+      <div className={logoutBtn}>
         <button type="button" onClick={logout}>Logout</button>
       </div>
-      <div>
+      <div className={tasksContainer}>
         {tasksMarkup}
       </div>
     </div>

@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { removeTask, removeTodo } from '../actions/actionCreators';
 import AddTask from './AddTask';
+import * as taskStyles from '../styles/Task.module.css';
 
 function Task(props) {
   const {
     todo, identifier, removeTodo, removeTask,
   } = props;
+
+  const { taskContainer, taskHeader } = taskStyles;
 
   const { title, tasks } = todo;
   const tasksMarkup = tasks.map((task) => (
@@ -27,11 +30,11 @@ function Task(props) {
   ));
 
   return (
-    <div>
-      <div>
+    <div className={taskContainer}>
+      <div className={taskHeader}>
         <h3>{title}</h3>
         <button type="button" onClick={() => removeTodo(identifier)}>
-          <img src="https://www.freeiconspng.com/uploads/remove-icon-png-25.png" width="25" alt="Icon Remove Pictures" />
+          <img src="https://www.freeiconspng.com/uploads/remove-icon-png-25.png" width="20" alt="Icon Remove Pictures" />
         </button>
       </div>
       <ul>
