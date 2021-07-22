@@ -1,10 +1,10 @@
+/* eslint-disable no-console */
 import { SkynetClient } from 'skynet-js';
 import {
   ADD_TASK, ADD_TODO, DELETETASK, DELETETODO, TOGGLE_LOGIN_STATUS, UPDATE_TODOS,
 } from './actionTypes';
 
-const portal = window.location.hostname === 'localhost' ? 'https://siasky.net' : undefined;
-export const client = new SkynetClient(portal);
+export const client = new SkynetClient();
 const domain = 'localhost';
 const todosFilePath = `${domain}/tda.json`;
 

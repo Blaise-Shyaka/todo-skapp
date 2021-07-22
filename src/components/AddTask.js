@@ -9,7 +9,6 @@ function AddTask(props) {
   const inputEltId = `task-text-${todoIdentifier}`;
 
   function handleAddTask() {
-    console.log(inputEltId, 'clicked');
     const text = document.querySelector(`#${inputEltId}`).value;
     const task = {
       title,

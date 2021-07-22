@@ -1,6 +1,6 @@
 # Todo-Skapp
 
-Todo-Skapp is a todo list-style Skynet application.
+Todo-Skapp is a todo list-style [Skynet](https://siasky.net/) application.
 
 ## Screenshots
 
@@ -17,7 +17,7 @@ Todo-Skapp is a todo list-style Skynet application.
 
 ## Live Demo
 
-[Live demo link](https://relaxed-yonath-f0b0e7.netlify.app/)
+[Live demo link](https://0002hn5rhfo23jvm78kpo2e6l5ie6ftrpgd1emj4ki9ddlb5ctb90e0.siasky.net/)
 
 ## Getting Started
 ### Requirements
