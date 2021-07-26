@@ -1,0 +1,33 @@
+.taskContainer {
+  margin-top: 2rem;
+  margin-left: 2rem;
+  background-color: #f7f8fa;
+  padding: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.taskHeader button {
+  cursor: pointer;
+}
+
+.taskHeader button,
+.taskContainer li button {
+  background: none;
+  border: none;
+}
+
+.taskContainer li button:hover {
+  cursor: pointer;
+}
+
+.taskContainer li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

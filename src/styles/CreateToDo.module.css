@@ -1,0 +1,25 @@
+.creatingTodo input {
+  outline: none;
+  background-color: #f7f8fa;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  margin-right: 0.3rem;
+  margin-left: 1rem;
+}
+
+.creatingTodo button {
+  background-color: #5c4fa4;
+  outline: none;
+  border: none;
+  color: whitesmoke;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+.creatingTodo button:hover {
+  cursor: pointer;
+}
